@@ -12,14 +12,26 @@ uses
   Vcl.Controls,
   Vcl.Forms,
   Vcl.Dialogs,
-  Vcl.StdCtrls;
+  Vcl.StdCtrls,
+  Vcl.ComCtrls,
+  Vcl.ExtCtrls,
+  System.Generics.Collections;
 
 type
   TFrmPrincipal = class(TForm)
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    btnClientes: TButton;
+    Panel1: TPanel;
+    StatusBar1: TStatusBar;
+    btnUsuarios: TButton;
+    procedure btnClientesClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnUsuariosClick(Sender: TObject);
+
   private
-    { Private declarations }
+    Forms: TList<TForm>;
+    procedure DoFormDestroy(ASender: TObject);
+    procedure DoFormAddNotify(ASender: TObject; const AItem: TForm; Action: TCollectionNotification);
   public
     { Public declarations }
   end;
@@ -30,13 +42,44 @@ var
 implementation
 
 uses
-  View.CadastroPadrao;
+  Model.TB_USUARIO,
+  Model.TB_CLIENTE,
+  View.CadastroPadrao,
+  Controller.FormManager;
 
 {$R *.dfm}
 
-procedure TFrmPrincipal.Button1Click(Sender: TObject);
+procedure TFrmPrincipal.btnClientesClick(Sender: TObject);
 begin
-  FrmCadastroPadrao := TFrmCadastroPadrao.Create(Application);
+  Forms.Add(TFormManager.GetForm<TCliente>);
+end;
+
+procedure TFrmPrincipal.btnUsuariosClick(Sender: TObject);
+begin
+  Forms.Add(TFormManager.GetForm<TUsuario>.SetProcOnDestroy(DoFormDestroy));
+end;
+
+procedure TFrmPrincipal.DoFormAddNotify(ASender: TObject; const AItem: TForm; Action: TCollectionNotification);
+begin
+//  if AItem is TFrmCadastroPadrao then
+//    lstForms.AddItem(TFrmCadastroPadrao(AItem).lbTitle.Caption, AItem)
+//  else
+//    lstForms.AddItem(AItem.Caption, AItem);
+end;
+
+procedure TFrmPrincipal.DoFormDestroy(ASender: TObject);
+begin
+end;
+
+procedure TFrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Forms.DisposeOf;
+end;
+
+procedure TFrmPrincipal.FormCreate(Sender: TObject);
+begin
+  Forms := TList<TForm>.Create;
+  Forms.OnNotify := DoFormAddNotify;
 end;
 
 end.

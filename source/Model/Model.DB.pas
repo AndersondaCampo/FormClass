@@ -48,8 +48,19 @@ begin
   FConn.LoginPrompt     := False;
   FConn.Online;
 
-  if FConn.ExecSQLScalar('SELECT name FROM sqlite_master WHERE type=''table'' AND name = ''TB_CLIENTE''') = '' then
-    FConn.ExecSQL('CREATE TABLE TB_CLIENTE( ' + ' ID INTEGER,' + ' NOME TEXT, ' + ' TELEFONE TEXT )');
+  if FConn.ExecSQLScalar('SELECT name FROM sqlite_master WHERE type=''table'' AND name = ''TB_USUARIO''') = '' then
+  begin
+    FConn.ExecSQL('CREATE TABLE TB_USUARIO( ' +
+                  ' ID INTEGER,' +
+                  ' NOME VARCHAR(100), ' +
+                  ' TELEFONE VARCHAR(30), '+
+                  ' CEP VARCHAR(9)) ');
+
+    FConn.ExecSQL('CREATE TABLE TB_CLIENTE( ' +
+                  ' ID INTEGER,' +
+                  ' NOME VARCHAR(100), '+
+                  ' OBS VARCHAR(100)) ');
+  end;
 end;
 
 destructor TSysDB.Destroy;

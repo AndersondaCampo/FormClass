@@ -2,8 +2,8 @@ object FrmPrincipal: TFrmPrincipal
   Left = 0
   Top = 0
   Caption = 'FrmPrincipal'
-  ClientHeight = 471
-  ClientWidth = 844
+  ClientHeight = 618
+  ClientWidth = 1187
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -14,15 +14,50 @@ object FrmPrincipal: TFrmPrincipal
   KeyPreview = True
   OldCreateOrder = False
   WindowState = wsMaximized
+  OnClose = FormClose
+  OnCreate = FormCreate
   PixelsPerInch = 96
   TextHeight = 13
-  object Button1: TButton
-    Left = 392
-    Top = 240
-    Width = 75
-    Height = 25
-    Caption = 'Button1'
+  object Panel1: TPanel
+    Left = 0
+    Top = 0
+    Width = 1187
+    Height = 57
+    Align = alTop
+    BevelOuter = bvNone
+    ParentColor = True
     TabOrder = 0
-    OnClick = Button1Click
+    ExplicitWidth = 844
+    object btnClientes: TButton
+      Left = 0
+      Top = 0
+      Width = 121
+      Height = 57
+      Align = alLeft
+      Caption = 'Clientes'
+      TabOrder = 0
+      OnClick = btnClientesClick
+    end
+    object btnUsuarios: TButton
+      Left = 121
+      Top = 0
+      Width = 121
+      Height = 57
+      Align = alLeft
+      Caption = 'Usu'#225'rios'
+      TabOrder = 1
+      OnClick = btnUsuariosClick
+      ExplicitLeft = 216
+    end
+  end
+  object StatusBar1: TStatusBar
+    Left = 0
+    Top = 599
+    Width = 1187
+    Height = 19
+    Panels = <>
+    ExplicitLeft = 592
+    ExplicitTop = 272
+    ExplicitWidth = 0
   end
 end

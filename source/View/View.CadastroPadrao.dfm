@@ -1,10 +1,10 @@
 object FrmCadastroPadrao: TFrmCadastroPadrao
   Left = 0
   Top = 0
-  BorderStyle = bsNone
-  Caption = 'FrmCadastroPadrao'
-  ClientHeight = 559
-  ClientWidth = 863
+  BorderIcons = [biSystemMenu, biMinimize]
+  BorderStyle = bsSingle
+  ClientHeight = 300
+  ClientWidth = 709
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -12,36 +12,33 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
   Font.Name = 'Tahoma'
   Font.Style = []
   FormStyle = fsMDIChild
+  KeyPreview = True
   OldCreateOrder = False
+  Position = poOwnerFormCenter
   Visible = True
   OnClose = FormClose
   OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
   PixelsPerInch = 96
   TextHeight = 13
-  object pnBody: TPanel
-    Left = 0
-    Top = 49
-    Width = 863
-    Height = 456
-    Align = alClient
-    BevelOuter = bvNone
-    TabOrder = 0
-  end
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 863
+    Width = 709
     Height = 49
     Align = alTop
     BevelOuter = bvNone
     Color = 8404992
     ParentBackground = False
-    TabOrder = 1
-    object Label1: TLabel
+    TabOrder = 0
+    ExplicitWidth = 863
+    object lbTitle: TLabel
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 793
+      Width = 703
       Height = 43
       Align = alClient
       Caption = 'Cadastro'
@@ -55,52 +52,128 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
       ExplicitWidth = 73
       ExplicitHeight = 23
     end
-    object Button1: TButton
-      AlignWithMargins = True
-      Left = 802
-      Top = 3
-      Width = 58
-      Height = 43
-      Align = alRight
-      Caption = 'Sair'
-      TabOrder = 0
-      OnClick = Button1Click
-    end
   end
   object Panel3: TPanel
     Left = 0
-    Top = 505
-    Width = 863
+    Top = 246
+    Width = 709
     Height = 54
     Align = alBottom
     BevelOuter = bvNone
     Color = clSilver
     ParentBackground = False
-    TabOrder = 2
+    TabOrder = 1
+    ExplicitTop = 505
+    ExplicitWidth = 863
+    DesignSize = (
+      709
+      54)
     object btnCancelar: TButton
-      Left = 687
-      Top = 16
+      Left = 534
+      Top = 14
       Width = 75
       Height = 25
-      Caption = 'Cancelar'
+      Anchors = [akRight, akBottom]
+      Caption = 'C&ancelar'
       TabOrder = 0
+      OnClick = btnCancelarClick
+      ExplicitLeft = 776
     end
     object btnConfirmar: TButton
-      Left = 768
-      Top = 16
+      Left = 615
+      Top = 14
       Width = 75
       Height = 25
-      Caption = 'Confirmar'
+      Anchors = [akRight, akBottom]
+      Caption = '&Confirmar'
       TabOrder = 1
+      OnClick = btnConfirmarClick
+      ExplicitLeft = 857
+    end
+    object btnCadastrar: TButton
+      Left = 615
+      Top = 14
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = '&Cadastrar'
+      TabOrder = 2
+      OnClick = btnCadastrarClick
+    end
+    object btnEditar: TButton
+      Left = 534
+      Top = 14
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = '&Editar'
+      TabOrder = 3
+      OnClick = btnEditarClick
+    end
+    object btnExcluir: TButton
+      Left = 453
+      Top = 14
+      Width = 75
+      Height = 25
+      Anchors = [akRight, akBottom]
+      Caption = 'E&xcluir'
+      TabOrder = 4
+      OnClick = btnExcluirClick
+    end
+  end
+  object PageControl1: TPageControl
+    Left = 0
+    Top = 49
+    Width = 709
+    Height = 197
+    ActivePage = tsCadastro
+    Align = alClient
+    TabOrder = 2
+    TabWidth = 100
+    object tsGrid: TTabSheet
+      Caption = 'Browse'
+      object DBGrid1: TDBGrid
+        AlignWithMargins = True
+        Left = 3
+        Top = 3
+        Width = 695
+        Height = 163
+        Align = alClient
+        BorderStyle = bsNone
+        DataSource = DataSource
+        ReadOnly = True
+        TabOrder = 0
+        TitleFont.Charset = DEFAULT_CHARSET
+        TitleFont.Color = clWindowText
+        TitleFont.Height = -11
+        TitleFont.Name = 'Tahoma'
+        TitleFont.Style = []
+        OnDblClick = DBGrid1DblClick
+      end
+    end
+    object tsCadastro: TTabSheet
+      Caption = 'Informa'#231#245'es'
+      ImageIndex = 1
+      object pnContainer: TPanel
+        Left = 0
+        Top = 0
+        Width = 701
+        Height = 169
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 0
+      end
     end
   end
   object query: TFDQuery
-    Left = 384
-    Top = 504
+    CachedUpdates = True
+    OnReconcileError = queryReconcileError
+    Left = 352
+    Top = 8
   end
   object DataSource: TDataSource
     DataSet = query
-    Left = 440
-    Top = 505
+    Left = 408
+    Top = 9
   end
 end

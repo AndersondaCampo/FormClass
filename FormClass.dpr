@@ -6,7 +6,9 @@ uses
   View.CadastroPadrao in 'source\View\View.CadastroPadrao.pas' {FrmCadastroPadrao},
   Model.DB in 'source\Model\Model.DB.pas',
   Model.TB_USUARIO in 'source\Model\Model.TB_USUARIO.pas',
-  Model.Attributes in 'source\Model\Model.Attributes.pas';
+  Model.Attributes in 'source\Model\Model.Attributes.pas',
+  Controller.FormManager in 'source\Controller\Controller.FormManager.pas',
+  Model.TB_CLIENTE in 'source\Model\Model.TB_CLIENTE.pas';
 
 {$R *.res}
 

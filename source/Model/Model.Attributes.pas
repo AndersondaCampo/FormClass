@@ -2,8 +2,10 @@
 
 interface
 
-uses
-  Data.DB;
+const
+  SMALL_SIZE  = 30;
+  MEDIUM_SIZE = 100;
+  BIG_SIZE    = 200;
 
 type
   TSize = (fsSmall, fsMedium, fsBig);
@@ -28,29 +30,37 @@ type
     constructor Create(TableName, Caption: String; FormSize: TSize; Columns: Integer = 1);
   End;
 
+  PK = Class(TCustomAttribute);
+
+  TComponentType = (ctEdit, ctMaskedEdit, ctDateEdit, ctCurrencyEdit, ctButtonedEdit);
+
   Field = Class(TCustomAttribute)
   private
-    FFieldType   : TFieldType;
+    FFieldType   : TComponentType;
     FMask        : String;
     FFieldName   : String;
     FCaption     : String;
     FSize        : TSize;
-    FDefaultValue: Variant;
+    FOnlyNumber  : Boolean;
+    FEnable      : Boolean;
     procedure SetCaption(const Value: String);
     procedure SetFieldName(const Value: String);
-    procedure SetFieldType(const Value: TFieldType);
+    procedure SetFieldType(const Value: TComponentType);
     procedure SetMask(const Value: String);
     procedure SetSize(const Value: TSize);
-    procedure SetDefaultValue(const Value: Variant);
+    procedure SetOnlyNumber(const Value: Boolean);
+    procedure SetEnable(const Value: Boolean);
   public
-    property FieldType   : TFieldType write SetFieldType;
+    property FieldType   : TComponentType read FFieldType write SetFieldType;
+    property OnlyNumber  : Boolean read FOnlyNumber write SetOnlyNumber;
+    property Enable      : Boolean read FEnable write SetEnable;
     property FieldName   : String read FFieldName write SetFieldName;
     property Caption     : String read FCaption write SetCaption;
     property Mask        : String read FMask write SetMask;
     property Size        : TSize read FSize write SetSize;
-    property DefaultValue: Variant read FDefaultValue write SetDefaultValue;
 
-    constructor Create(FieldType: TFieldType; FieldName, Caption, Mask: String; Size: TSize; Default: Variant);
+    constructor Create(FieldType: TComponentType; Enable, OnlyNumber: Boolean; FieldName, Caption, Mask: String;
+      Size: TSize);
   End;
 
 implementation
@@ -87,14 +97,16 @@ end;
 
 { Field }
 
-constructor Field.Create(FieldType: TFieldType; FieldName, Caption, Mask: String; Size: TSize; Default: Variant);
+constructor Field.Create(FieldType: TComponentType; Enable, OnlyNumber: Boolean; FieldName, Caption, Mask: String;
+      Size: TSize);
 begin
   FFieldType    := FieldType;
+  FOnlyNumber   := OnlyNumber;
+  FEnable       := Enable;
   FFieldName    := FieldName;
   FCaption      := Caption;
   FMask         := Mask;
   FSize         := Size;
-  FDefaultValue := Default;
 end;
 
 procedure Field.SetCaption(const Value: String);
@@ -102,9 +114,9 @@ begin
   FCaption := Value;
 end;
 
-procedure Field.SetDefaultValue(const Value: Variant);
+procedure Field.SetEnable(const Value: Boolean);
 begin
-  FDefaultValue := Value;
+  FEnable := Value;
 end;
 
 procedure Field.SetFieldName(const Value: String);
@@ -112,7 +124,7 @@ begin
   FFieldName := Value;
 end;
 
-procedure Field.SetFieldType(const Value: TFieldType);
+procedure Field.SetFieldType(const Value: TComponentType);
 begin
   FFieldType := Value;
 end;
@@ -120,6 +132,11 @@ end;
 procedure Field.SetMask(const Value: String);
 begin
   FMask := Value;
+end;
+
+procedure Field.SetOnlyNumber(const Value: Boolean);
+begin
+  FOnlyNumber := Value;
 end;
 
 procedure Field.SetSize(const Value: TSize);
