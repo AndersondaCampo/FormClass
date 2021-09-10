@@ -94,16 +94,17 @@
     <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
         <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
         <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=;ProgramID=com.embarcadero.$(MSBuildProjectName)</VerInfo_Keys>
     </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
         <DCCReference Include="source\View\View.Principal.pas">
-            <Form>Form1</Form>
+            <Form>FrmPrincipal</Form>
         </DCCReference>
         <DCCReference Include="source\View\View.CadastroPadrao.pas">
-            <Form>Form2</Form>
+            <Form>FrmCadastroPadrao</Form>
         </DCCReference>
         <DCCReference Include="source\Model\Model.DB.pas"/>
         <DCCReference Include="source\Model\Model.TB_USUARIO.pas"/>

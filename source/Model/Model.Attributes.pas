@@ -28,11 +28,9 @@ type
     constructor Create(TableName, Caption: String; FormSize: TSize; Columns: Integer = 1);
   End;
 
-  TFieldTypes = TFieldType;
-
   Field = Class(TCustomAttribute)
   private
-    FFieldType   : TFieldTypes;
+    FFieldType   : TFieldType;
     FMask        : String;
     FFieldName   : String;
     FCaption     : String;
@@ -45,14 +43,14 @@ type
     procedure SetSize(const Value: TSize);
     procedure SetDefaultValue(const Value: Variant);
   public
-    property FieldType   : TFieldTypes write SetFieldType;
+    property FieldType   : TFieldType write SetFieldType;
     property FieldName   : String read FFieldName write SetFieldName;
     property Caption     : String read FCaption write SetCaption;
     property Mask        : String read FMask write SetMask;
     property Size        : TSize read FSize write SetSize;
     property DefaultValue: Variant read FDefaultValue write SetDefaultValue;
 
-    constructor Create(FieldType: TFieldTypes; FieldName, Caption, Mask: String; Size: TSize; Default: Variant);
+    constructor Create(FieldType: TFieldType; FieldName, Caption, Mask: String; Size: TSize; Default: Variant);
   End;
 
 implementation
@@ -114,7 +112,7 @@ begin
   FFieldName := Value;
 end;
 
-procedure Field.SetFieldType(const Value: TFieldTypes);
+procedure Field.SetFieldType(const Value: TFieldType);
 begin
   FFieldType := Value;
 end;

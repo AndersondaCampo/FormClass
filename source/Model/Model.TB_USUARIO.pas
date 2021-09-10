@@ -3,6 +3,7 @@
 interface
 
 uses
+  Data.DB,
   Model.Attributes;
 
 type
@@ -16,12 +17,14 @@ type
     procedure SetNome(const Value: String);
     procedure SetTelefone(const Value: String);
   public
-    [Field(ftInteger, 'ID', 'Código', '', fsSmall, 0)]
-    property ID: Integer read FID write SetID;
-    [Field(ftString, 'NOME', 'Nome', '', fsSmall, 0)]
-    property Nome: String read FNome write SetNome;
-    [Field(ftString, 'TELEFONE', 'Telefone', '', fsSmall, 0)]
-    Property Telefone: String read FTelefone write SetTelefone;
+//    [Field(ftInteger, 'ID', 'Código', '', fsSmall, 0)]
+//    property ID: Integer read FID write SetID;
+//
+//    [Field(ftString, 'NOME', 'Nome', '', fsSmall, 0)]
+//    property Nome: String read FNome write SetNome;
+//
+//    [Field(ftString, 'TELEFONE', 'Telefone', '', fsSmall, 0)]
+//    Property Telefone: String read FTelefone write SetTelefone;
   End;
 
 implementation

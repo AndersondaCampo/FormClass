@@ -11,10 +11,13 @@ uses
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
-  Vcl.Dialogs;
+  Vcl.Dialogs,
+  Vcl.StdCtrls;
 
 type
-  TForm1 = class(TForm)
+  TFrmPrincipal = class(TForm)
+    Button1: TButton;
+    procedure Button1Click(Sender: TObject);
   private
     { Private declarations }
   public
@@ -22,10 +25,18 @@ type
   end;
 
 var
-  Form1: TForm1;
+  FrmPrincipal: TFrmPrincipal;
 
 implementation
 
+uses
+  View.CadastroPadrao;
+
 {$R *.dfm}
+
+procedure TFrmPrincipal.Button1Click(Sender: TObject);
+begin
+  FrmCadastroPadrao := TFrmCadastroPadrao.Create(Application);
+end;
 
 end.

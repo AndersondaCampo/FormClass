@@ -28,7 +28,7 @@ uses
   FireDAC.Comp.Client;
 
 type
-  TForm2 = class(TForm)
+  TFrmCadastroPadrao = class(TForm)
     pnBody: TPanel;
     Panel2: TPanel;
     Label1: TLabel;
@@ -40,6 +40,7 @@ type
     DataSource: TDataSource;
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
   private
 
   public
@@ -47,7 +48,7 @@ type
   end;
 
 var
-  Form2: TForm2;
+  FrmCadastroPadrao: TFrmCadastroPadrao;
 
 implementation
 
@@ -56,13 +57,18 @@ uses
 
 {$R *.dfm}
 
-procedure TForm2.Button1Click(Sender: TObject);
+procedure TFrmCadastroPadrao.Button1Click(Sender: TObject);
 begin
   Self.ModalResult := mrClose;
   Self.Close;
 end;
 
-procedure TForm2.FormCreate(Sender: TObject);
+procedure TFrmCadastroPadrao.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+end;
+
+procedure TFrmCadastroPadrao.FormCreate(Sender: TObject);
 begin
   query.Connection := SysDB.Connection;
 end;

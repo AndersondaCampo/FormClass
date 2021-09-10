@@ -16,7 +16,6 @@ uses
   Data.DB,
   FireDAC.Comp.Client,
   FireDAC.Stan.ExprFuncs,
-  FireDAC.Phys.SQLiteWrapper.Stat,
   FireDAC.Phys.SQLiteDef,
   FireDAC.Phys.SQLite;
 
