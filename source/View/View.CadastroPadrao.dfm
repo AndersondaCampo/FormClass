@@ -3,8 +3,8 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
   Top = 0
   BorderIcons = [biSystemMenu, biMinimize]
   BorderStyle = bsSingle
-  ClientHeight = 300
-  ClientWidth = 709
+  ClientHeight = 559
+  ClientWidth = 962
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -26,19 +26,18 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
   object Panel2: TPanel
     Left = 0
     Top = 0
-    Width = 709
+    Width = 962
     Height = 49
     Align = alTop
     BevelOuter = bvNone
     Color = 8404992
     ParentBackground = False
     TabOrder = 0
-    ExplicitWidth = 863
     object lbTitle: TLabel
       AlignWithMargins = True
       Left = 3
       Top = 3
-      Width = 703
+      Width = 956
       Height = 43
       Align = alClient
       Caption = 'Cadastro'
@@ -55,21 +54,19 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
   end
   object Panel3: TPanel
     Left = 0
-    Top = 246
-    Width = 709
+    Top = 505
+    Width = 962
     Height = 54
     Align = alBottom
     BevelOuter = bvNone
     Color = clSilver
     ParentBackground = False
     TabOrder = 1
-    ExplicitTop = 505
-    ExplicitWidth = 863
     DesignSize = (
-      709
+      962
       54)
     object btnCancelar: TButton
-      Left = 534
+      Left = 787
       Top = 14
       Width = 75
       Height = 25
@@ -77,10 +74,9 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
       Caption = 'C&ancelar'
       TabOrder = 0
       OnClick = btnCancelarClick
-      ExplicitLeft = 776
     end
     object btnConfirmar: TButton
-      Left = 615
+      Left = 868
       Top = 14
       Width = 75
       Height = 25
@@ -88,10 +84,9 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
       Caption = '&Confirmar'
       TabOrder = 1
       OnClick = btnConfirmarClick
-      ExplicitLeft = 857
     end
     object btnCadastrar: TButton
-      Left = 615
+      Left = 868
       Top = 14
       Width = 75
       Height = 25
@@ -101,7 +96,7 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
       OnClick = btnCadastrarClick
     end
     object btnEditar: TButton
-      Left = 534
+      Left = 787
       Top = 14
       Width = 75
       Height = 25
@@ -111,7 +106,7 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
       OnClick = btnEditarClick
     end
     object btnExcluir: TButton
-      Left = 453
+      Left = 706
       Top = 14
       Width = 75
       Height = 25
@@ -124,8 +119,8 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
   object PageControl1: TPageControl
     Left = 0
     Top = 49
-    Width = 709
-    Height = 197
+    Width = 962
+    Height = 456
     ActivePage = tsCadastro
     Align = alClient
     TabOrder = 2
@@ -136,8 +131,8 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
         AlignWithMargins = True
         Left = 3
         Top = 3
-        Width = 695
-        Height = 163
+        Width = 948
+        Height = 422
         Align = alClient
         BorderStyle = bsNone
         DataSource = DataSource
@@ -154,13 +149,16 @@ object FrmCadastroPadrao: TFrmCadastroPadrao
     object tsCadastro: TTabSheet
       Caption = 'Informa'#231#245'es'
       ImageIndex = 1
-      object pnContainer: TPanel
+      object PEFlowGridLayout1: TPEFlowGridLayout
         Left = 0
         Top = 0
-        Width = 701
-        Height = 169
+        Width = 954
+        Height = 428
+        AlignSpace = 10
         Align = alClient
         BevelOuter = bvNone
+        Color = clWhite
+        ParentBackground = False
         TabOrder = 0
       end
     end

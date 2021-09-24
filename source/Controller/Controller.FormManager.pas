@@ -23,11 +23,13 @@ uses
   Vcl.Mask,
   Vcl.DBCtrls,
   Vcl.ComCtrls,
+  Vcl.Controls,
   System.SysUtils,
   System.RTTI,
   System.TypInfo,
   Model.Attributes,
-  Vcl.Controls;
+  PDBEdit,
+  Vcl.Graphics;
 
 { TFormManager }
 
@@ -43,20 +45,15 @@ var
   prpRtti   : TRttiProperty;
   cusAttr   : TCustomAttribute;
   Info      : PTypeInfo;
-  FCountTop : Integer;
 
   tb: Table;
   fd: Field;
 
-  edit    : TDBEdit;
-  maskEdit: TDBEdit;
-  dateEdit: TDBEdit;
-  &label  : TLabel;
+  edit  : TPDBEdit;
+  &label: TLabel;
+
+  idx: Integer;
 begin
-  FCountTop := 10;
-
-  Result := TFrmCadastroPadrao.Create(Application);
-
   ctxContext := TRttiContext.Create;
   try
     Info    := System.TypeInfo(T);
@@ -68,7 +65,26 @@ begin
       begin
         tb := Table(cusAttr);
 
-        Result.Name := 'frm'+ tb.TableName;
+        for idx := 0 to Screen.FormCount - 1 do
+        begin
+          if Screen.Forms[idx].Name = 'frm' + tb.TableName then
+          begin
+            Screen.Forms[idx].BringToFront;
+
+            if Screen.Forms[idx].CanFocus then
+              Screen.Forms[idx].SetFocus;
+
+            Exit;
+          end;
+        end;
+
+        Result                               := TFrmCadastroPadrao.Create(Application);
+        Result.PEFlowGridLayout1.OneCol2List := True;
+        Result.PEFlowGridLayout1.MaxColumns  := 2;
+        Result.PEFlowGridLayout1.AlignSpace  := 8;
+        Result.PEFlowGridLayout1.ItemHeight  := 41;
+        Result.PEFlowGridLayout1.ItemWidth   := 300;
+        Result.Name                          := 'frm' + tb.TableName;
         Result.SetTitle(tb.Caption);
         Result.SetSize(tb.FormSize);
         Result.SetCollumns(tb.Collumns);
@@ -94,116 +110,30 @@ begin
           Result.query.FieldByName(fd.FieldName).EditMask := fd.Mask;
           Result.query.FieldByName(fd.FieldName).DisplayLabel := fd.Caption;
 
+          edit               := TPDBEdit.Create(Result);
+          edit.LabelCaption  := fd.Caption;
+          edit.Parent        := Result.PEFlowGridLayout1;
+          edit.Name          := 'edt' + fd.FieldName;
+          edit.Field         := fd.FieldName;
+          edit.DataSource    := Result.DataSource;
+          edit.Enabled       := fd.Enable;
+          edit.Required      := True;
+          edit.RequiredColor := clRed;
 
-          case fd.FieldType of
-            ctEdit:
-              begin
-                &label         := TLabel.Create(Result);
-                &label.Name    := 'lb' + fd.FieldName;
-                &label.Caption := fd.Caption;
-                &label.Top     := FCountTop;
-                &label.Left    := 10;
-                &label.Parent  := Result.pnContainer;
-                Inc(FCountTop, 15);
-
-                edit            := TDBEdit.Create(Result);
-                edit.Name       := 'edt' + fd.FieldName;
-                edit.DataField  := fd.FieldName;
-                edit.DataSource := Result.DataSource;
-                edit.Enabled    := fd.Enable;
-                edit.Text       := '';
-                edit.Parent     := Result.pnContainer;
-                edit.Top        := FCountTop;
-                edit.Left       := 10;
-
-                case fd.Size of
-                  fsSmall:
-                    edit.Width := 30 * 6;
-                  fsMedium:
-                    edit.Width := 60 * 6;
-                  fsBig:
-                    edit.Width := 120 * 6;
-                end;
-
-                Inc(FCountTop, 30);
-              end;
-
-            ctMaskedEdit:
-              begin
-                &label         := TLabel.Create(Result);
-                &label.Name    := 'lb' + fd.FieldName;
-                &label.Caption := fd.Caption;
-                &label.Top     := FCountTop;
-                &label.Left    := 10;
-                &label.Parent  := Result.pnContainer;
-                Inc(FCountTop, 15);
-
-                maskEdit            := TDBEdit.Create(Result);
-                maskEdit.Name       := 'edt' + fd.FieldName;
-                maskEdit.DataField  := fd.FieldName;
-                maskEdit.Enabled    := fd.Enable;
-                maskEdit.DataSource := Result.DataSource;
-                maskEdit.Top        := FCountTop;
-                maskEdit.Left       := 10;
-                maskEdit.Text       := '';
-                maskEdit.Parent     := Result.pnContainer;
-                Inc(FCountTop, 30);
-
-                case fd.Size of
-                  fsSmall:
-                    maskEdit.Width := 30 * 6;
-                  fsMedium:
-                    maskEdit.Width := 60 * 6;
-                  fsBig:
-                    maskEdit.Width := 120 * 6;
-                end;
-              end;
-
-            ctDateEdit:
-              begin
-                &label         := TLabel.Create(Result);
-                &label.Name    := 'lb' + fd.FieldName;
-                &label.Caption := fd.Caption;
-                &label.Top     := FCountTop;
-                &label.Left    := 10;
-                &label.Parent  := Result.pnContainer;
-                Inc(FCountTop, 15);
-
-                dateEdit         := TDBEdit.Create(Result);
-                dateEdit.Name    := 'edt' + fd.FieldName;
-                dateEdit.Enabled := fd.Enable;
-                dateEdit.Left    := 10;
-                dateEdit.Top     := FCountTop;
-                dateEdit.Width   := 30;
-                dateEdit.Parent  := Result.pnContainer;
-                Inc(FCountTop, 30);
-
-                case fd.Size of
-                  fsSmall:
-                    dateEdit.Width := 30 * 6;
-                  fsMedium:
-                    dateEdit.Width := 60 * 6;
-                  fsBig:
-                    dateEdit.Width := 120 * 6;
-                end;
-              end;
-
-            ctCurrencyEdit:
-              begin
-
-              end;
-
-            ctButtonedEdit:
-              begin
-
-              end;
+          case fd.Size of
+            fsSmall:
+              edit.Width := 30 * 6;
+            fsMedium:
+              edit.Width := 60 * 6;
+            fsBig:
+              edit.Width := 120 * 6;
           end;
-
         end;
       end;
 
     Result.Top  := Round((Application.MainForm.Height / 2) - (Result.Height / 2));
     Result.Left := Round((Application.MainForm.Width / 2) - (Result.Width / 2));
+    Result.PEFlowGridLayout1.AlignItems;
   finally
     ctxContext.Free;
   end;

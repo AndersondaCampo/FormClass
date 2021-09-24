@@ -32,7 +32,8 @@ uses
   Model.Attributes,
   Vcl.Grids,
   Vcl.DBGrids,
-  Vcl.ComCtrls;
+  Vcl.ComCtrls,
+  PEFlowGridLayout;
 
 type
   TFrmCadastroPadrao = class(TForm)
@@ -47,10 +48,10 @@ type
     PageControl1: TPageControl;
     tsGrid: TTabSheet;
     tsCadastro: TTabSheet;
-    pnContainer: TPanel;
     DBGrid1: TDBGrid;
     btnEditar: TButton;
     btnExcluir: TButton;
+    PEFlowGridLayout1: TPEFlowGridLayout;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCancelarClick(Sender: TObject);
@@ -65,9 +66,9 @@ type
     procedure btnExcluirClick(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
   private
-    FColumns: Integer;
-    FTable  : String;
-    FFields : String;
+    FColumns  : Integer;
+    FTable    : String;
+    FFields   : String;
     FOnDestroy: TProc<TObject>;
   public
     procedure SetTable(const ATable: String);
@@ -161,7 +162,8 @@ end;
 
 procedure TFrmCadastroPadrao.btnExcluirClick(Sender: TObject);
 begin
-  if not query.IsEmpty and (MessageDlg('Excluir realmente excluir o cadastro?', mtConfirmation, [mbNo, mbYes], 0) = mrYes) then
+  if not query.IsEmpty and (MessageDlg('Deseja realmente excluir o cadastro?', mtConfirmation, [mbNo, mbYes], 0) = mrYes)
+  then
     query.Delete;
 end;
 
@@ -189,17 +191,13 @@ end;
 procedure TFrmCadastroPadrao.FormKeyPress(Sender: TObject; var Key: Char);
 begin
   if Key = #27 then
-    if query.State in [dsInsert, dsEdit] then
-      if MessageDlg('Cadastro com informação pendentes de confirmação!'+ #13+ 'Deseja sair mesmo assim?', mtWarning, [mbNo, mbYes], 0) <> mrYes then
-        Abort;
-
-  Self.Close;
+    Self.Close;
 end;
 
 procedure TFrmCadastroPadrao.FormShow(Sender: TObject);
 begin
   tsGrid.TabVisible       := False;
-  tsCadastro.TabVisible      := False;
+  tsCadastro.TabVisible   := False;
   PageControl1.ActivePage := tsGrid;
 end;
 
@@ -228,7 +226,7 @@ end;
 
 Function TFrmCadastroPadrao.SetProcOnDestroy(AProc: TProc<TObject>): TFrmCadastroPadrao;
 begin
-  Result := Self;
+  Result     := Self;
   FOnDestroy := AProc;
 end;
 

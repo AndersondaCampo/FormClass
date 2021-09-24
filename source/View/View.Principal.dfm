@@ -27,7 +27,6 @@ object FrmPrincipal: TFrmPrincipal
     BevelOuter = bvNone
     ParentColor = True
     TabOrder = 0
-    ExplicitWidth = 844
     object btnClientes: TButton
       Left = 0
       Top = 0
@@ -47,7 +46,6 @@ object FrmPrincipal: TFrmPrincipal
       Caption = 'Usu'#225'rios'
       TabOrder = 1
       OnClick = btnUsuariosClick
-      ExplicitLeft = 216
     end
   end
   object StatusBar1: TStatusBar
@@ -56,8 +54,5 @@ object FrmPrincipal: TFrmPrincipal
     Width = 1187
     Height = 19
     Panels = <>
-    ExplicitLeft = 592
-    ExplicitTop = 272
-    ExplicitWidth = 0
   end
 end
